@@ -42,7 +42,7 @@ class Field:
         raise AssertionError("Not implemented")
 
     def divide(self, x, y):
-        """ multiply x and y"""
+        """ divide x and y"""
         raise AssertionError("Not implemented")
 
     def __eq__(self, other):
@@ -120,6 +120,8 @@ class BinaryField(Field):
         """ multiply x and y. Ther is the same version as found on the wikipidea page above"""
         self._is_valid(x)
         self._is_valid(y)
+        if self.mults[x][y] is not None:
+            return self.mults[x][y]
         p = 0
         while y != 0:
             if y & 1 != 0:
@@ -134,11 +136,10 @@ class BinaryField(Field):
         """ Multiplicative inverse element of field of the element x. To find an inverse we will use the extended The
         Itoh-Tsujii Algorithm. Process found here: http://cse.iitkgp.ac.in/~debdeep/osscrypto/psec/psec/pubs/thesis.pdf
         """
+        self._is_valid(x)
+        if self.recips[x] is not None:
+            return self.recips[x]
         return pow_over_field(x, self.size - 2, self)
-
-    def divide(self, x, y):
-        """ multiply x and y"""
-        raise AssertionError("Not implemented")
 
     def __eq__(self, other):
         if isinstance(other, BinaryField):
