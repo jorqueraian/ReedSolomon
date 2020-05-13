@@ -1,9 +1,8 @@
 import fieldmath
 
 
-# Polynomial operations without using class
-# This although more painful to implement into code should speed things up a huge amount
-# Using the Polynomial class seems to be slightly slower than PolynomialOperations
+# Polynomial operations. ALl functions work under some field and all parameters are
+# polynomials such that 3 + 3x + x^4 is represented with the array [3, 3, 0, 0, 1]
 class PolynomialOperations(object):
     def __init__(self, field):
         if isinstance(field, fieldmath.Field):
