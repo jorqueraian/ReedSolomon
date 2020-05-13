@@ -147,19 +147,15 @@ class GeneralizedReedSolomon(object):
                 lam_coeff_matrix = lam_kernel_space * fieldmath.create_matrix([[1]] * lam_kernel_space.columns,
                                                                               self.f)
                 lam_coeff = lam_coeff_matrix.to_list(single=True)
-                # lambda_poly = Polynomial(*lam_coeff, f=self.f)
 
                 # plug lambda back into key equations to find gamma_poly
                 gamma_coeff_matrix = syndrome_matrix.get_sub_matrix(None, tau, None, None)*lam_coeff_matrix
                 gamma_coeff = gamma_coeff_matrix.to_list(single=True)
-                # gamma_poly = Polynomial(*gamma_coeff, f=self.f)
 
                 # Calculate the GCD
                 gcd_lg = self.p.poly_gcd(lam_coeff, gamma_coeff)
-                # gcd_lg = poly_gcd(lambda_poly, gamma_poly)
 
                 # divide to find error_locator_poly
-                # error_locator_poly, rem = divmod(lambda_poly, gcd_lg)
                 error_locator_poly, rem = self.p.poly_divmod(lam_coeff, gcd_lg)
 
                 # Find where the errors are by finding when Lambda(alpha_arr_k^-1) == 0
